@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>117005705624-f830gkcifpkcn6tunva714sfgdo22fli.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.117005705624-f830gkcifpkcn6tunva714sfgdo22fli</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAs2Z1m4cGp3XYOhxgAF5IBLJGRHjOYC9o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>117005705624</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.teamtyro.university</string>
+	<key>PROJECT_ID</key>
+	<string>teamtyro-university</string>
+	<key>STORAGE_BUCKET</key>
+	<string>teamtyro-university.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:117005705624:ios:d6b810e519e701862ecbed</string>
+</dict>
+</plist>
