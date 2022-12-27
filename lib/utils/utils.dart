@@ -1,0 +1,1 @@
+export 'ui/minor_ui.dart';

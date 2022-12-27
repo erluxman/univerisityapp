@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "117005705624",
+    "project_id": "teamtyro-university",
+    "storage_bucket": "teamtyro-university.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117005705624:android:ff9f99941bb99a1b2ecbed",
+        "android_client_info": {
+          "package_name": "com.teamtyro.university"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117005705624-1nilkb4m7a1jghtqotndhot1llveisqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp7TqnWxc63n5UyzHV78L72FbwZ1tCMPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117005705624-1nilkb4m7a1jghtqotndhot1llveisqc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117005705624-f830gkcifpkcn6tunva714sfgdo22fli.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teamtyro.university"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
