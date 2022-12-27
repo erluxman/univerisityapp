@@ -1,7 +1,7 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:university_app/blocs/auth/auth_state.dart';
-import 'package:university_app/screens/auth/login_screen.dart';
 import 'package:university_app/screens/home/home_screen.dart';
 import 'package:university_app/utils/utils.dart';
 
@@ -131,12 +131,13 @@ class BottomNavItem {
 
   Widget Function() widgetBuilder;
 
-  BottomNavItem(
-      {required this.title,
-      required this.icon,
-      required this.path,
-      required this.widgetBuilder,
-      this.canPullToRefresh = true});
+  BottomNavItem({
+    required this.title,
+    required this.icon,
+    required this.path,
+    required this.widgetBuilder,
+    this.canPullToRefresh = true,
+  });
 
   @override
   String toString() =>
@@ -164,17 +165,13 @@ Widget buildAppBar(
     WidgetRef ref,
     AuthState authState) {
   final AuthBloc authBloc = ref.watch(authProvider.notifier);
-  return Container(
-    color: Theme.of(context).brightness == Brightness.dark
-        ? Colors.black
-        : Colors.white,
-    height:
-        MediaQuery.of(context).padding.top + AppBar().preferredSize.height + 20,
-    child: SafeArea(
-      child: Row(
-        children: [
-          8.horizontalSpace(),
-          SizedBox(
+  return AppBar(
+    leading: InkWell(
+          onTap: () {
+            Beamer.of(context).beamToNamed('/profile', popToNamed: "/");
+          },
+          child: Container(
+            padding: const EdgeInsets.only(left: 8),
             width: MediaQuery.of(context).size.width * 0.38,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -189,31 +186,86 @@ Widget buildAppBar(
               ],
             ),
           ),
-          Center(
-            child: Text(
-              selectedBottomNavItem.title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
+        ),
+        title: Center(
+          child: Text(
+            selectedBottomNavItem.title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 22),
           ),
-          const Spacer(flex: 1),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              authBloc.logout();
+        ),
+        actions: [
+           IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: () {
+            authBloc.logout();
+          },
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: IconButton(
+            icon: const Icon(Icons.dark_mode),
+            onPressed: () async {
+              provider.toggleDarkMode();
             },
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              icon: const Icon(Icons.dark_mode),
-              onPressed: () async {
-                provider.toggleDarkMode();
-              },
+        ),
+        ],
+  );
+
+  return Container(
+    color: Theme.of(context).brightness == Brightness.dark
+        ? Colors.black
+        : Colors.white,
+    height:
+        MediaQuery.of(context).padding.top + AppBar().preferredSize.height + 20,
+    child: Row(
+      children: [
+        8.horizontalSpace(),
+        InkWell(
+          onTap: () {
+            Beamer.of(context).beamToNamed('/profile', popToNamed: "/");
+          },
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.38,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(500),
+                  child: CircleAvatar(
+                    child: Image.network(authState.user?.photoUrl ??
+                        "https://erluxman.com/static/profile_pic-b899d378689819c43d090532018a5af5.png"),
+                  ),
+                )
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+        Center(
+          child: Text(
+            selectedBottomNavItem.title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 22),
+          ),
+        ),
+        const Spacer(flex: 1),
+        IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: () {
+            authBloc.logout();
+          },
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: IconButton(
+            icon: const Icon(Icons.dark_mode),
+            onPressed: () async {
+              provider.toggleDarkMode();
+            },
+          ),
+        ),
+      ],
     ),
   );
 }
