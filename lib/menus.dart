@@ -96,7 +96,7 @@ BottomNavigationBarItem getBottomChipItem({
 
 List<BottomNavItem> get navbarItems => [
       BottomNavItem(
-          title: "For You",
+          title: "Bhuwan",
           icon: R.svgs.forYou,
           path: "/",
           widgetBuilder: () => const DashBoardScreen()),
@@ -167,50 +167,50 @@ Widget buildAppBar(
   final AuthBloc authBloc = ref.watch(authProvider.notifier);
   return AppBar(
     leading: InkWell(
-          onTap: () {
-            Beamer.of(context).beamToNamed('/profile', popToNamed: "/");
+      onTap: () {
+        Beamer.of(context).beamToNamed('/profile', popToNamed: "/");
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 8),
+        width: MediaQuery.of(context).size.width * 0.38,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(500),
+              child: CircleAvatar(
+                child: Image.network(authState.user?.photoUrl ??
+                    "https://erluxman.com/static/profile_pic-b899d378689819c43d090532018a5af5.png"),
+              ),
+            )
+          ],
+        ),
+      ),
+    ),
+    title: Center(
+      child: Text(
+        selectedBottomNavItem.title,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 22),
+      ),
+    ),
+    actions: [
+      IconButton(
+        icon: const Icon(Icons.logout),
+        onPressed: () {
+          authBloc.logout();
+        },
+      ),
+      Align(
+        alignment: Alignment.centerRight,
+        child: IconButton(
+          icon: const Icon(Icons.dark_mode),
+          onPressed: () async {
+            provider.toggleDarkMode();
           },
-          child: Container(
-            padding: const EdgeInsets.only(left: 8),
-            width: MediaQuery.of(context).size.width * 0.38,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(500),
-                  child: CircleAvatar(
-                    child: Image.network(authState.user?.photoUrl ??
-                        "https://erluxman.com/static/profile_pic-b899d378689819c43d090532018a5af5.png"),
-                  ),
-                )
-              ],
-            ),
-          ),
         ),
-        title: Center(
-          child: Text(
-            selectedBottomNavItem.title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 22),
-          ),
-        ),
-        actions: [
-           IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: () {
-            authBloc.logout();
-          },
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: IconButton(
-            icon: const Icon(Icons.dark_mode),
-            onPressed: () async {
-              provider.toggleDarkMode();
-            },
-          ),
-        ),
-        ],
+      ),
+    ],
   );
 
   return Container(
