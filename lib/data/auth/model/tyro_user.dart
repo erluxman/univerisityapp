@@ -33,4 +33,20 @@ class TyroUser {
       photoUrl: firebaseUser.photoURL,
     );
   }
+
+  TyroUser copyWith({
+    String? id,
+    String? email,
+    String? name,
+    String? phone,
+    String? photoUrl,
+  }) {
+    return TyroUser(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      phone: phone ?? this.phone,
+      photoUrl: photoUrl ?? this.photoUrl,
+    );
+  }
 }

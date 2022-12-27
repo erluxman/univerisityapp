@@ -17,22 +17,15 @@ class AuthRepo {
     return await _dataSource.getCurrentUser();
   }
 
-  Future<bool> submitPhoneForVerification(String phoneNumber) {
-    return _dataSource.submitPhoneForVerification(phoneNumber);
-  }
-
-  Future<bool> verifyCode(String phoneNumber, String verificationCode) {
-    return _dataSource.verifyCode(phoneNumber, verificationCode);
-  }
-
   Future<void> logout() async => _dataSource.logout();
 
-  Future<DataOrError<TyroUser>> loginWithEmailPassword(
-      String email, String password) async {
-    return _dataSource.loginWithEmailPassword(email, password);
-  }
+
 
   Future<DataOrError<TyroUser>> loginWithGoogle() async {
     return _dataSource.loginWithGoogle();
+  }
+
+  Future<void> updateUserField({required String field, required String value}) async{
+    return _dataSource.updateUserField(field: field, value: value);
   }
 }

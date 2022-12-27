@@ -18,7 +18,7 @@ class AuthBloc extends StateNotifier<AuthState> {
     final response = await authRepo.loginWithGoogle();
     if (response.error != null) {
       Fluttertoast.showToast(msg: (response.error?.error ?? "-").toString());
-    } else{
+    } else {
       state = state.copyWith(
         authenticated: true,
         authFetching: false,
@@ -56,19 +56,6 @@ class AuthBloc extends StateNotifier<AuthState> {
     }
   }
 
-  void updateCode(String code) {
-    String verificationCode = code.replaceAll("-", "");
-    if (verificationCode != state.verificationCode) {
-      state = state.copyWith(
-        verificationCode: verificationCode,
-        isVerificationCodeValid: verificationCode.length == 4,
-      );
-    }
-    if (verificationCode.length == 4) {
-      verifyCode();
-    }
-  }
-
   void useEmailLogin({bool useEmail = false}) {
     state = state.copyWith(showEmailLogin: useEmail);
   }
@@ -87,47 +74,6 @@ class AuthBloc extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> submitPhoneForVerification({bool isRetryCode = false}) async {
-    state = state.copyWith(showProgress: true);
-    final codeSent =
-        await authRepo.submitPhoneForVerification(state.phoneNumber);
-    final message =
-        codeSent ? "" : "Unable to send code to ${state.phoneNumber}";
-    state = state.copyWith(
-        showCodeSent: codeSent, showProgress: false, errorMessage: message);
-    if (codeSent) {
-      state = state.copyWith(
-          allowCodeEntry: codeSent,
-          codeSentTimestamp: DateTime.now(),
-          retryWaitTime: isRetryCode
-              ? const Duration(seconds: 60)
-              : const Duration(seconds: 10));
-    }
-  }
-
-  Future<void> verifyCode() async {
-    state = state.copyWith(showProgress: true);
-    bool codeVerified = false;
-
-    codeVerified =
-        await authRepo.verifyCode(state.phoneNumber, state.verificationCode);
-    state = state.copyWith(
-      showProgress: false,
-      showVerificationSuccess: codeVerified,
-      errorMessage: "",
-    );
-    if (codeVerified) {
-      await Future.delayed(const Duration(seconds: 1));
-      state = state.copyWith(
-        showVerificationSuccess: false,
-        authenticated: true,
-        authFetching: false,
-      );
-    } else {
-      handleLoginException("--");
-    }
-  }
-
   Future<void> handleLoginException(String error) async {
     state = state.copyWith(
       showProgress: false,
@@ -136,29 +82,15 @@ class AuthBloc extends StateNotifier<AuthState> {
     );
   }
 
-  Future<void> loginWithEmail() async {
-    state = state.copyWith(showProgress: true);
-
-    final userOrError =
-        await authRepo.loginWithEmailPassword(state.email, state.password);
-    final isDataNull = userOrError.data == null;
-    print("Hey");
-    if (isDataNull) {
-      handleLoginException(userOrError.error?.error ?? "");
-
-      print("User updated");
-    } else {
-      state = state.copyWith(
-        authenticated: true,
-        authFetching: false,
-        user: userOrError.data,
-      );
-    }
-  }
-
   Future<void> logout() async {
     state = AuthState.initial();
     await authRepo.logout();
     state = AuthState.initial().copyWith(authFetching: false);
+  }
+
+  void updateName(String value) {
+    final newUser = state.user?.copyWith(name: value);
+    authRepo.updateUserField(field: "fullName", value: value);
+    state = state.copyWith(user: newUser);
   }
 }
