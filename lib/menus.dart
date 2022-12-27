@@ -96,7 +96,7 @@ BottomNavigationBarItem getBottomChipItem({
 
 List<BottomNavItem> get navbarItems => [
       BottomNavItem(
-          title: "Bhuwan",
+          title: "Mero tablet",
           icon: R.svgs.forYou,
           path: "/",
           widgetBuilder: () => const DashBoardScreen()),
