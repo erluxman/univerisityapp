@@ -20,6 +20,6 @@ class ThemeStateProvider extends StateNotifier<ThemeData> {
 
 ThemeData theme(bool isDarkMode) => ThemeData(
     colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color(0xFFFFA9FE),
+        seedColor: const Color(0xFF1976d2),
         brightness: isDarkMode ? Brightness.dark : Brightness.light),
     useMaterial3: true);
