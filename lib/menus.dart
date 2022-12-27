@@ -96,14 +96,14 @@ BottomNavigationBarItem getBottomChipItem({
 
 List<BottomNavItem> get navbarItems => [
       BottomNavItem(
-          title: "Bhuwan",
+          title: "Mero bike",
           icon: R.svgs.forYou,
           path: "/",
           widgetBuilder: () => const DashBoardScreen()),
       BottomNavItem(
           title: "Insights",
           icon: R.svgs.insights,
-          path: "/insights",
+          path: "Mero bike",
           widgetBuilder: () => const DashBoardScreen()),
       BottomNavItem(
           title: "Home",
