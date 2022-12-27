@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:university_app/blocs/auth/auth_state.dart';
+import 'package:university_app/screens/auth/login_screen.dart';
 import 'package:university_app/screens/home/home_screen.dart';
+import 'package:university_app/utils/utils.dart';
 
 import 'blocs/auth/auth_state_provider.dart';
 import 'resources/res.dart';
@@ -62,7 +65,7 @@ BottomNavigationBarItem getBottomChipItem({
               ? Colors.transparent
               : Theme.of(context).colorScheme.primary.withOpacity(0.80)),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: Icon(Icons.home),
+      child: const Icon(Icons.home),
     ),
   );
   return BottomNavigationBarItem(
@@ -154,35 +157,35 @@ class BottomNavItem {
 }
 
 Widget buildAppBar(
-  BuildContext context,
-  AuthBloc authBloc,
-  ThemeStateProvider provider,
-  BottomNavItem selectedBottomNavItem,
-  WidgetRef ref,
-) {
+    BuildContext context,
+    AuthBloc authBloc,
+    ThemeStateProvider provider,
+    BottomNavItem selectedBottomNavItem,
+    WidgetRef ref,
+    AuthState authState) {
   final AuthBloc authBloc = ref.watch(authProvider.notifier);
   return Container(
     color: Theme.of(context).brightness == Brightness.dark
         ? Colors.black
         : Colors.white,
-    height: MediaQuery.of(context).padding.top + AppBar().preferredSize.height+20,
+    height:
+        MediaQuery.of(context).padding.top + AppBar().preferredSize.height + 20,
     child: SafeArea(
       child: Row(
         children: [
+          8.horizontalSpace(),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.38,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                if (selectedBottomNavItem.title.toLowerCase() ==
-                    "Home".toLowerCase())
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
-                      size: 24,
-                    ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(500),
+                  child: CircleAvatar(
+                    child: Image.network(authState.user?.photoUrl ??
+                        "https://erluxman.com/static/profile_pic-b899d378689819c43d090532018a5af5.png"),
                   ),
+                )
               ],
             ),
           ),
@@ -190,7 +193,7 @@ Widget buildAppBar(
             child: Text(
               selectedBottomNavItem.title,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),
           const Spacer(flex: 1),
