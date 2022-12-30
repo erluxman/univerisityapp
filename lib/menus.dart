@@ -96,7 +96,7 @@ BottomNavigationBarItem getBottomChipItem({
 
 List<BottomNavItem> get navbarItems => [
       BottomNavItem(
-          title: "Mero bike",
+          title: "Timro bike",
           icon: R.svgs.forYou,
           path: "/",
           widgetBuilder: () => const DashBoardScreen()),
@@ -212,5 +212,4 @@ Widget buildAppBar(
       ),
     ],
   );
-
- }
+}
