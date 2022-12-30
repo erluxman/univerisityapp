@@ -6,7 +6,6 @@ import 'package:university_app/data/auth/model/tyro_user.dart';
 
 import '../../utils/data/data_or_error.dart';
 
-const baseUrl = "http://localhost:8080/api/v1";
 
 class AuthDataSource {
   AuthDataSource();
@@ -28,29 +27,10 @@ class AuthDataSource {
     await FirebaseAuth.instance.signOut();
   }
 
-  Future<DataOrError<TyroUser>> loginWithEmailPassword(
-      String email, String password) async {
-    return DataOrError(error: ServerError.fromJson({}));
-  }
-
   Future<Map<String, String>?> updateTokenFromEmailPassword(
       {required String email, required String password}) async {}
 
-  Future<bool> submitPhoneForVerification(String phoneNumber) async {
-    await Future.delayed(const Duration(seconds: 2));
-    return Random().nextBool();
-  }
-
-  Future<bool> verifyCode(String phoneNumber, String verificationCode) async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (verificationCode == '1234') {
-      return true;
-    } else if (verificationCode == '0000') {
-      throw Exception('Code expired');
-    } else {
-      throw Exception('Invalid Code');
-    }
-  }
+ 
 
   Future<DataOrError<TyroUser>> loginWithGoogle() async {
     //  write code to login with google in firebase
@@ -80,5 +60,9 @@ class AuthDataSource {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+  }
+
+  Future<void> updateUserField({required String field, required String value}) async {
+
   }
 }
